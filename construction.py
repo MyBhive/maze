@@ -12,13 +12,12 @@ class Construction:
             for contenu in range(15):
                 line = file.readline()
                 liste = re.findall("[ot]", line)
-                # if a line is bigger than 15 char, I reduce it to have only 15
-                if len(file.readline()) >= 15:
+                # if my list from my line is bigger than 15 char, I reduce it to have only 15
+                if len(line) >= 15:
                     liste = liste[:15]
                 # if a line as less than 15 char then I had some until I get 15
-                if len(liste) < 15:
-                    liste2 = liste + ["o"] * (15 - len(liste))
-                    liste = liste + liste2
+                if len(line) < 15:
+                    liste = liste + ["o"] * (15 - len(liste))
                 self.structure.append(liste)
 
 # I show my list of lists
