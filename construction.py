@@ -21,7 +21,7 @@ class Construction:
                     liste = liste + liste2
                 self.structure.append(liste)
 
-# I know
+# I show my list of lists
     def show_list(self):
         for list in self.structure:
             print(list)
