@@ -1,17 +1,17 @@
 from minimaze.maze import labyrinthe
 from minimaze.maze import view
-from minimaze.maze import guardian
+from minimaze.maze import characters
 from minimaze.maze import item
-from minimaze.maze import mcgyver
+from minimaze.maze import character
 
-class Controller(labyrinthe,view,guardian,item,mcgyver):
+class Controller(labyrinthe, view, characters, item, character):
 #initialisation du personnage
     def __init__(self):
         super(labyrinthe).__init__()
         super(view).__init__()
-        super(guardian).__init__()
+        super(characters).__init__()
         super(item).__init__()
-        super(mcgyver).__init__()
+        super(character).__init__()
 
 
     def hero_in_maze(self):
@@ -30,9 +30,10 @@ class Controller(labyrinthe,view,guardian,item,mcgyver):
                 print(ligne)
             n_ligne = n_ligne +1
 
+#collecting items
 
 
 while True:
     labyrinthe.Labyrinthe.show_list()
-    mcgyver.McGyver.to_move()
+    character.McGyver.to_move()
 

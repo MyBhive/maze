@@ -1,12 +1,22 @@
 import re
 
-class Labyrinthe:
-# init an empty list to make a list of lists later
-    def __init__(self):
-        self.structure = []
+"""
+Creating a Labyrinthe class
+"""
 
-    def pick_up_from_file(self, name_file):
+
+class Labyrinthe:
+
+    """
+    init an empty list to make a list of lists later
+    """
+
+    def __init__(self, name_file):
+        self.structure = []
         self.file = name_file
+
+    def pick_up_from_file(self):
+
         # I open my file and read it line per line to take out all the "o" and "t" existing inside
         with open(self.file, "r") as file:
             for contenu in range(15):
@@ -17,12 +27,15 @@ class Labyrinthe:
                     liste = liste[:15]
                 self.structure.append(liste)
 
-# I show my list of lists
+    """
+    I show my list of lists
+    """
+
     def show_list(self):
-        for list in self.structure:
-            print(list)
+        for liste in self.structure:
+            print(liste)
 
 
-map = Labyrinthe()
-map.pick_up_from_file("laby.txt")
-map.show_list()
+map_lab = Labyrinthe("laby.txt")
+map_lab.pick_up_from_file()
+map_lab.show_list()

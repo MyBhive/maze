@@ -1,12 +1,17 @@
 
+"""
+Creating a Items class to give a name and a position to all the items of the game.
+"""
+
+
 class Items:
 
-    def __init__(self, items):
-        self.items = items
-        self.position = ("x", "y")
+    def __init__(self, name, x, y):
+        self.name = name
+        self.x = x
+        self.y = y
+        self.inventury = []
 
-        # random of position in len(file)
-
-    def collecting_items(self):
-        if self.items == self.position:
-            return True
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
