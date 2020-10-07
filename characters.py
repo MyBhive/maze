@@ -23,13 +23,11 @@ class McGyver(Character):
     def __init__(self, pos_x, pos_y):
         Character.__init__(self, "M", pos_x, pos_y)
 
-
     """
-
     keys of movement are: 'U' for up / 'D' for down / 'L' for left and 'R' for right
     """
 
-    def move(self):
+    def to_move(self):
         keyboard = input("To move McGyver in the maze press:"
                          " 'u' for up/'d' for down/'l' for left"
                          "/'r' for right or you can quite the game with 'Q':")
@@ -62,8 +60,8 @@ class McGyver(Character):
     Method to set position
     """
     def set_position(self, x, y):
-        self.pos_x = x
-        self.pos_y = y
+        self.pos_x = int(x)
+        self.pos_y = int(y)
 
 
 """
@@ -72,6 +70,6 @@ Using "G" for Guardian
 """
 
 
-class Guard(Character):
+class Guardian(Character):
     def __init__(self, pos_x, pos_y,):
         Character.__init__(self, "G", pos_x, pos_y)

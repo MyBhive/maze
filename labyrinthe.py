@@ -28,6 +28,23 @@ class Labyrinthe:
                     liste = list[:15]
                 self.structure.append(liste)
 
+
+    """
+    verify if the move is possible: out of the maze or on a wall or on a path
+    return None if forbidden
+    """
+
+    def autorize_move(self,pos_perso, pos_col, pos_line):
+        self.n_cols = len(self.file[0])
+        self.n_line = len(self.file)
+        walls = "O"
+        if pos_line > (self.n_line -1) or pos_col > (self.n_cols - 1):
+            return None
+        elif pos_perso == walls:
+            return None
+        else:
+            return [pos_col, pos_line]
+
     """
     I show my list of lists
     """
