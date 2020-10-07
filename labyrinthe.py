@@ -15,6 +15,7 @@ class Labyrinthe:
         self.structure = []
         self.file = name_file
         self.maze = []
+        self.pos_perso = ["x", "y"]
 
     def pick_up_from_file(self):
 
@@ -28,23 +29,6 @@ class Labyrinthe:
                     liste = list[:15]
                 self.structure.append(liste)
 
-
-    """
-    verify if the move is possible: out of the maze or on a wall or on a path
-    return None if forbidden
-    """
-
-    def autorize_move(self,pos_perso, pos_col, pos_line):
-        self.n_cols = len(self.file[0])
-        self.n_line = len(self.file)
-        walls = "O"
-        if pos_line > (self.n_line -1) or pos_col > (self.n_cols - 1):
-            return None
-        elif pos_perso == walls:
-            return None
-        else:
-            return [pos_col, pos_line]
-
     """
     I show my list of lists
     """
@@ -52,6 +36,22 @@ class Labyrinthe:
     def show_list(self):
         for liste in self.structure:
             print(liste)
+
+    """
+    verify if the move is possible: out of the maze or on a wall or on a path
+    return None if forbidden
+    """
+
+    def autorize_move(self, pos_perso, pos_col, pos_line):
+        self.n_cols = len(self.structure[0])
+        self.n_line = len(self.structure)
+        walls = "O"
+        if (pos_line > (self.n_line - 1)) or (pos_col > (self.n_cols - 1)):
+            return None
+        elif pos_perso == walls:
+            return None
+        else:
+            return [pos_col, pos_line]
 
     """
     To find a character's position in the maze using the slicing method.
