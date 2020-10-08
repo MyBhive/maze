@@ -1,4 +1,4 @@
-......OO.OOO.O.
+M.....OO.OOO.O.
 OOO....O...OO.O
 OOO..OO........
 .OO.O.....OOO..
@@ -12,5 +12,5 @@ O.O.O.......OO.
 O..O....O..O.O.
 O.OOO...O.OO...
 O.O..O....OO..O
-O.O.OOO........
+O.O.OOO.......G
 

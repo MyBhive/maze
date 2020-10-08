@@ -9,8 +9,12 @@ and pos_y for index of column
 class Character:
     def __init__(self, character, pos_x, pos_y):
         self.character = character
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+        self.pos_x = int(pos_x)
+        self.pos_y = int(pos_y)
+
+    def pic_from_character(self, character):
+        self.character = character
+        return self.character
 
 
 """
@@ -22,7 +26,7 @@ using 'M' for McGyver
 class McGyver(Character):
     def __init__(self, pos_x, pos_y):
         Character.__init__(self, "M", pos_x, pos_y)
-
+        self.inventury = []
     """
     keys of movement are: 'U' for up / 'D' for down / 'L' for left and 'R' for right
     """
@@ -55,13 +59,6 @@ class McGyver(Character):
 
     def position(self):
         return self.pos_x, self.pos_y
-
-    """
-    Method to set position
-    """
-    def set_position(self, x, y):
-        self.pos_x = int(x)
-        self.pos_y = int(y)
 
 
 """

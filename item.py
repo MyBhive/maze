@@ -8,10 +8,19 @@ class Items:
 
     def __init__(self, name, x, y):
         self.name = name
-        self.x = x
-        self.y = y
-        self.inventury = []
+        self.x = int(x)
+        self.y = int(y)
 
-    def set_position(self, x, y):
-        self.x = x
-        self.y = y
+    def get_position(self, x, y):
+        return x, y
+
+    def collected(self):
+       return True
+
+    def has_all_items(self):
+        if Items.collected(self.name) == 3:
+            return True
+        else:
+            return False
+
+
