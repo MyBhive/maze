@@ -12,7 +12,7 @@ class Character:
         self.pos_x = int(pos_x)
         self.pos_y = int(pos_y)
 
-    def pic_from_character(self, character):
+    def picture_from_character(self, character):
         self.character = character
         return self.character
 
@@ -26,32 +26,6 @@ using 'M' for McGyver
 class McGyver(Character):
     def __init__(self, pos_x, pos_y):
         Character.__init__(self, "M", pos_x, pos_y)
-        self.inventury = []
-    """
-    keys of movement are: 'U' for up / 'D' for down / 'L' for left and 'R' for right
-    """
-
-    def to_move(self):
-        keyboard = input("To move McGyver in the maze press:"
-                         " 'u' for up/'d' for down/'l' for left"
-                         "/'r' for right or you can quite the game with 'Q':")
-        if keyboard == 'u':
-            self.pos_x -= 1
-            return self.pos_x, self.pos_y
-        elif keyboard == 'd':
-            self.pos_x += 1
-            return self.pos_x, self.pos_y
-        if keyboard == 'l':
-            self.pos_y -= 1
-            return self.pos_x, self.pos_y
-        elif keyboard == 'r':
-            self.pos_y += 1
-            return self.pos_x, self.pos_y
-        # if something else is used
-        else:
-            print("please us  'u' for up/'d' for down/'l' for left""/'r' for right"
-                  " or you can quite the game with 'Q' ")
-            return self.pos_x, self.pos_y
 
     """
     Method to learn the position
@@ -59,6 +33,10 @@ class McGyver(Character):
 
     def position(self):
         return self.pos_x, self.pos_y
+
+    def set_position(self, x, y):
+        self.pos_x = x
+        self.pos_y = y
 
 
 """

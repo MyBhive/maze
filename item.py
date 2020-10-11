@@ -1,6 +1,5 @@
-
 """
-Creating a Items class to give a name and a position to all the items of the game.
+Creating an Items class to give a name and a position to all the items of the game.
 """
 
 
@@ -10,17 +9,8 @@ class Items:
         self.name = name
         self.x = int(x)
         self.y = int(y)
+        self.is_collected = False
 
-    def get_position(self, x, y):
-        return x, y
-
-    def collected(self):
-       return True
-
-    def has_all_items(self):
-        if Items.collected(self.name) == 3:
-            return True
-        else:
-            return False
-
-
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
