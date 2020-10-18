@@ -60,34 +60,13 @@ class Labyrinthe:
     """
 
     def autorize_move(self, pos_col, pos_line):
-        n_col = len(self.map_structure[0])
-        n_line = len(self.map_structure)
+        len(self.map_structure[0])
+        len(self.map_structure)
         paths = "."
         if self.map_structure[pos_line][pos_col] != paths:
             return False
         else:
             return True
-
-    """
-       To define the movement of mcgyver
-    """
-    def move_mcgyver(self, up, down, left, right):
-        pos_x = 0
-        pos_y = 0
-        if up:
-            pos_x -= 1
-            return pos_x, pos_y
-        elif down:
-            pos_x += 1
-            return pos_x, pos_y
-        if left:
-            pos_y -= 1
-            return pos_x, pos_y
-        elif right:
-            pos_y += 1
-            return pos_x, pos_y
-        else:
-            return False
 
     """
     Method to find a character's position.
@@ -135,4 +114,4 @@ class Labyrinthe:
 if __name__ == '__main__':
     lab = Labyrinthe('laby.txt')
     (lab.pick_up_from_file())
-    print(lab.find_all("."))
+    print(lab.show_list())

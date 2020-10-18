@@ -1,4 +1,3 @@
-
 """
 Create a class Character with attribute
 a position: pos_x for index of line
@@ -37,6 +36,28 @@ class McGyver(Character):
     def set_position(self, x, y):
         self.pos_x = x
         self.pos_y = y
+
+    """
+       To define the movement of mcgyver
+    """
+    def move_mcgyver(self):
+        direction = ("K_UP", "K_DOWN", "K_LEFT", "K_RIGHT")
+        pos_x = 0
+        pos_y = 0
+        if direction == "K_UP":
+            pos_x -= 1
+            return pos_x, pos_y
+        elif direction == "K_DOWN":
+            pos_x += 1
+            return pos_x, pos_y
+        if direction == "K_LEFT":
+            pos_y -= 1
+            return pos_x, pos_y
+        elif direction == "K_RIGHT":
+            pos_y += 1
+            return pos_x, pos_y
+        else:
+            return False
 
 
 """

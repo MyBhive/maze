@@ -1,9 +1,31 @@
 from random import choice
-
+import pygame
 from minimaze.maze import labyrinthe
 from minimaze.maze import view
 from minimaze.maze import characters
 from minimaze.maze import item
+
+'''Graphic and Visual elements of the maze'''
+
+# Screen characteristics
+nb_of_sprite = 15
+sprite_size = 30
+border_size = 30
+screen_high = nb_of_sprite * sprite_size + border_size
+screen_with = nb_of_sprite * sprite_size
+window_title = pygame.display.set_caption("Maze : McGyver!")
+
+
+# base
+background = pygame.image.load("Ressource/background.jpg")
+wall_image = pygame.image.load("Ressource/mur.png")
+# characters
+hero_image = pygame.image.load("Ressource/MacGyver.png").convert_alpha()
+guardian = pygame.image.load("Ressource/Gardien.png").convert_alpha()
+# items
+needle_image = pygame.image.load("Ressource/aiguille.png").convert_alpha()
+ether_image = pygame.image.load("Ressource/ether.png").convert_alpha()
+pipe_image = pygame.image.load("Ressource/tube_plastique.png").convert_alpha()
 
 
 """
@@ -14,17 +36,14 @@ Creating controller's class to manage the game
 class Controller:
     def __init__(self):
         self.map_lab = labyrinthe.Labyrinthe("laby.txt")
-        self.player = characters.McGyver(0, 0)
-        self.guardian = characters.Guardian(14, 14)
-        self.keyboard = view.View.ask_user_direction
-        self.direction = labyrinthe.Labyrinthe.move_mcgyver
-        self.inventury = []
-        # appeler tous les self nécessaire (mcgyver, items etc)
-        # items: 'E' for Ether / 'N' for Needle / 'P' for Pipe
-        self.items = [item.Items("E", 0, 0),
-                      item.Items("N", 0, 0),
-                      item.Items("P", 0, 0)]
-
+        (x_start, y_start) = self.map_lab.find_one_character("M")
+        self.player = characters.McGyver(x_start, y_start)
+        (x_end, y_end) = self.map_lab.find_one_character("G")
+        self.guardian = characters.Guardian(x_end, y_end)
+        self.inventory = []
+        self.items = [item.Items(ether_image, 0, 0),
+                      item.Items(needle_image, 0, 0),
+                      item.Items(pipe_image, 0, 0)]
         self.paths = self.map_lab.find_all(".")
 
     def set_items_positions(self):
@@ -36,29 +55,36 @@ class Controller:
             # We put three objects in a  map
             self.map_lab.pos_character(element, element.x, element.y)
 
-    def items_to_collect(self):
-        pos_items = [0, 0]
-        pos_player = [0, 0]
-        if pos_player == pos_items:
-            self.inventury += 1
-            self.items = self.paths
+    def start(self):
+        print(self.map_lab)
+        # tant que mcgyver et le gardien ont des position différentes
+        while self.player != self.guardian:
+            # j'appelle la carte
+            print(self.map_lab)
+            Controller.set_items_positions(self.paths)
+            # j'appelle position mcgyver au début
+            self.map_lab.pos_character(hero_image, self.player.pos_x, self.player.pos_y)
+            # j'écrit la position du héro
+            pos_x, pos_y = self.player.position()
+            # methode de mouvement
+            pos_x_moving, pos_y_moving = self.player.move_mcgyver()
+            # methode de mouvement autorisé
+            if self.player != self.map_lab.autorize_move(self.player.pos_x, self.player.pos_y):
+                if self.player == self.items:
+                    self.inventory += 1
+                    self.items = self.paths
+            if len(self.inventory) == 3 and self.player == self.guardian:
+                view.View.win()
+            if len(self.inventory) < 3 and self.player == self.guardian:
+                view.View.game_over()
 
-        return self.inventury
-
-    def run_the_game(self):
-        if self.keyboard == "Up":
-            self.direction(True, False, False, False)
-        if self.keyboard == "Down":
-            self.direction(False, True, False, False)
-        if self.keyboard == "Left":
-            self.direction(False, False, True, False)
-        if self.keyboard == "Right":
-            self.direction(False, False, False, True)
 
 
-# if position "M" == "Seringue":
-# inventaire += 1
-# positionseringue = "."
-if __name__ == '__main__':
-    controller = Controller()
-    print(controller.set_items_positions())
+
+
+
+
+
+
+
+

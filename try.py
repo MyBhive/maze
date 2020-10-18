@@ -1,36 +1,4 @@
 import pygame
-"""
-This class has been creating to handle all the input() and print() in order to make the readability of the game easier
-"""
-red_color = (250, 15, 30)
-
-
-class View:
-
-    def __init__(self):
-        self.arial = pygame.font.SysFont("arial", 20, True, False)
-
-    def rules_from_the_game(self):
-        self.arial.font.render("Hi! Help McGyver to escape the maze. "
-                               "Don't forget to collect all the 3 items before to arrive in front of the Guardian. "
-                               "You need them to built a syringue to asleep the Guardian. "
-                               "Otherwise you will no be abble to escape and he will kill you! Good luck!", True,
-                               red_color)
-
-    def game_over(self):
-        self.arial.font.render(" Aouch, you arrived in front of the Guardian without all your items! You are dead!!",
-                               True, red_color)
-
-    def win(self):
-        self.arial.font.render("Congratulation you saved McGyver!", True, red_color)
-
-    def ask_user_direction(self):
-        keyboard = self.arial.font.render("To move McGyver in the maze please use "
-                                          "the directions arrow from your keyboard.", True, red_color)
-        return keyboard
-
-# Pas d'affichage sauf dans la classe view : from class characters
-
 
 pygame.init()
 
@@ -54,7 +22,6 @@ right = False
 walkcount = 0
 clock = pygame.time.Clock()
 
-
 def game_window():
     global walkcount
 
@@ -68,7 +35,6 @@ def game_window():
         walkcount = 0
 
     pygame.display.update()
-
 
 run = True
 while run:
@@ -93,3 +59,5 @@ while run:
             right = True
 
     game_window()
+
+
