@@ -69,3 +69,6 @@ Using "G" for Guardian
 class Guardian(Character):
     def __init__(self, pos_x, pos_y,):
         Character.__init__(self, "G", pos_x, pos_y)
+
+    def position(self):
+        return self.pos_x, self.pos_y
