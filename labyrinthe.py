@@ -83,12 +83,6 @@ class Labyrinthe:
         # return the position of this character
         return x_character, y_character
 
-    """
-    Method to attribute the position line x and position column y to the character
-    """
-
-    def pos_character(self, character, x, y):
-        self.map_structure[x][y] = character
 
     """
     Method which return the position of the character in the maze
@@ -114,4 +108,4 @@ class Labyrinthe:
 if __name__ == '__main__':
     lab = Labyrinthe('laby.txt')
     (lab.pick_up_from_file())
-    print(lab.show_list())
+    print(lab.find_all("O"))

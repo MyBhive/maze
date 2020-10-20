@@ -11,6 +11,10 @@ class Items:
         self.y = int(y)
         self.is_collected = False
 
-    def set_position(self, x, y):
-        self.x = x
-        self.y = y
+    def set_position(self):
+        return self.x, self.y
+
+
+if __name__ == '__main__':
+    it = Items("P", 0, 5)
+    print(it.set_position())

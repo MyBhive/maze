@@ -33,15 +33,10 @@ class McGyver(Character):
     def position(self):
         return self.pos_x, self.pos_y
 
-    def set_position(self, x, y):
-        self.pos_x = x
-        self.pos_y = y
-
     """
        To define the movement of mcgyver
     """
-    def move_mcgyver(self):
-        direction = ("K_UP", "K_DOWN", "K_LEFT", "K_RIGHT")
+    def move_mcgyver(self, direction):
         pos_x = 0
         pos_y = 0
         if direction == "K_UP":
@@ -72,3 +67,13 @@ class Guardian(Character):
 
     def position(self):
         return self.pos_x, self.pos_y
+
+
+
+
+if __name__ == '__main__':
+    ch = McGyver(0, 0)
+    lt = ch.move_mcgyver("K_DOWN")
+    print(lt)
+    lt = ch.move_mcgyver("K_LEFT")
+    print(lt)
