@@ -6,6 +6,13 @@ Creating a Labyrinthe's class to make the maze appear as well as character's pos
 
 class Labyrinthe:
 
+    player = "M"
+    guardian = "G"
+    pipe = "P"
+    needle = "N"
+    ether = "E"
+    paths = "."
+
     """
     init an empty list to make a list of lists later : Method parsing.
     """
@@ -38,9 +45,12 @@ class Labyrinthe:
     def analyze_file(self):
         nb_of_mcgyver = 0
         nb_of_guardian = 0
+        nb_of_pipe = 0
+        nb_of_needle = 0
+        nb_of_ether = 0
         for index_line, line in enumerate(self.map_structure):
             for index_element, element in enumerate(line):
-                if element not in ["M", "G", "O", "."]:
+                if element not in ["M", "G", "E", "P", "N", "O", "."]:
                     raise ValueError("Error in the text file at the line:" + str(index_line + 1) +
                                      ", the column" + str(index_element + 1) +
                                      ". Item" + element + "not allowed")
@@ -53,13 +63,25 @@ class Labyrinthe:
                         nb_of_guardian += 1
                         if nb_of_guardian > 1:
                             raise ValueError("Error : you should have just 1 Guardian!")
+                    if element == "P":
+                        nb_of_pipe += 1
+                        if nb_of_pipe > 1:
+                            raise ValueError("Error : you should have just 1 Pipe!")
+                    if element == "E":
+                        nb_of_ether += 1
+                        if nb_of_ether > 1:
+                            raise ValueError("Error : you should have just 1 Ether!")
+                    if element == "N":
+                        nb_of_needle += 1
+                        if nb_of_needle > 1:
+                            raise ValueError("Error : you should have just 1 Needle!")
 
     """
     verify if the move is possible: out of the maze, or, on a wall, or, on a path
     return None if forbidden
     """
 
-    def autorize_move(self, pos_col, pos_line):
+    def authorize_move(self, pos_col, pos_line):
         len(self.map_structure[0])
         len(self.map_structure)
         paths = "."
@@ -83,7 +105,28 @@ class Labyrinthe:
         # return the position of this character
         return x_character, y_character
 
+    """
+    afficher le character
+    """
 
+    def show_character_in_maze(self, character, pos_character):
+        n_line = 0
+        for line in self.map_structure:
+            if n_line == pos_character[1]:  # slicing
+                print(line[0:pos_character[0]] + [character] + line[pos_character[0]+1:])
+            else:
+                print(line)
+            n_line += 1
+
+    """
+    We def a attribut
+    to write a character
+    to the position line
+    x and column y.
+    """
+
+    def write_character(self, character, x, y):
+        self.map_structure[x][y] = character
     """
     Method which return the position of the character in the maze
     """
@@ -92,7 +135,7 @@ class Labyrinthe:
         return character
 
     """
-    To create a list of position to set items in the maze
+    To find all things from one category like paths or walls
     """
     def find_all(self, character):
         # lis of position
@@ -108,4 +151,4 @@ class Labyrinthe:
 if __name__ == '__main__':
     lab = Labyrinthe('laby.txt')
     (lab.pick_up_from_file())
-    print(lab.find_all("O"))
+    lab.show_character_in_maze("M", [2, 11])

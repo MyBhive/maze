@@ -23,8 +23,8 @@ using 'M' for McGyver
 
 
 class McGyver(Character):
-    def __init__(self, pos_x, pos_y):
-        Character.__init__(self, "M", pos_x, pos_y)
+    def __init__(self, character, pos_x, pos_y):
+        super().__init__(character, pos_x, pos_y)
 
     """
     Method to learn the position
@@ -62,8 +62,8 @@ Using "G" for Guardian
 
 
 class Guardian(Character):
-    def __init__(self, pos_x, pos_y,):
-        Character.__init__(self, "G", pos_x, pos_y)
+    def __init__(self, character, pos_x, pos_y,):
+        super().__init__(character, pos_x, pos_y)
 
     def position(self):
         return self.pos_x, self.pos_y
@@ -72,7 +72,7 @@ class Guardian(Character):
 
 
 if __name__ == '__main__':
-    ch = McGyver(0, 0)
+    ch = McGyver("M", 0, 0)
     lt = ch.move_mcgyver("K_DOWN")
     print(lt)
     lt = ch.move_mcgyver("K_LEFT")
