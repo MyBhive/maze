@@ -11,6 +11,7 @@ class Character:
         self.pos_x = int(pos_x)
         self.pos_y = int(pos_y)
 
+
     def picture_from_character(self, character):
         self.character = character
         return self.character
@@ -23,9 +24,13 @@ using 'M' for McGyver
 
 
 class McGyver(Character):
-    def __init__(self, character, pos_x, pos_y):
-        super().__init__(character, pos_x, pos_y)
-
+    def __init__(self, pos_x, pos_y, x_before, y_before):
+        super().__init__("M", pos_x, pos_y)
+        self.inventory = []
+        self.x_before = x_before
+        self.y_before = y_before
+        self.pos_x = pos_x
+        self.pos_y = pos_y
     """
     Method to learn the position
     """
@@ -33,26 +38,43 @@ class McGyver(Character):
     def position(self):
         return self.pos_x, self.pos_y
 
-    """
-       To define the movement of mcgyver
-    """
     def move_mcgyver(self, direction):
-        pos_x = 0
-        pos_y = 0
-        if direction == "K_UP":
-            pos_x -= 1
-            return pos_x, pos_y
-        elif direction == "K_DOWN":
-            pos_x += 1
-            return pos_x, pos_y
-        if direction == "K_LEFT":
-            pos_y -= 1
-            return pos_x, pos_y
-        elif direction == "K_RIGHT":
-            pos_y += 1
-            return pos_x, pos_y
+        if direction == "u":
+            self.pos_x -= 1
+            return self.pos_x, self.pos_y
+        elif direction == "d":
+            self.pos_x += 1
+            return self.pos_x, self.pos_y
+        if direction == "l":
+            self.pos_y -= 1
+            return self.pos_x, self.pos_y
+        elif direction == "r":
+            self.pos_y += 1
+            return self.pos_x, self.pos_y
         else:
             return False
+
+    def before_move(self, direction):
+        if direction == "u":
+            self.x_before += 1
+            return self.x_before, self.y_before
+        elif direction == "d":
+            self.x_before -= 1
+            return self.x_before, self.y_before
+        if direction == "l":
+            self.y_before += 1
+            return self.x_before, self.y_before
+        elif direction == "r":
+            self.y_before -= 1
+            return self.x_before, self.y_before
+        else:
+            return False
+
+    """
+    To collect item and add it in the inventory
+    """
+    def collect_item(self, item):
+        self.inventory.append(item)
 
 
 """
@@ -62,18 +84,8 @@ Using "G" for Guardian
 
 
 class Guardian(Character):
-    def __init__(self, character, pos_x, pos_y,):
-        super().__init__(character, pos_x, pos_y)
+    def __init__(self, pos_x, pos_y,):
+        super().__init__("G", pos_x, pos_y)
 
     def position(self):
         return self.pos_x, self.pos_y
-
-
-
-
-if __name__ == '__main__':
-    ch = McGyver("M", 0, 0)
-    lt = ch.move_mcgyver("K_DOWN")
-    print(lt)
-    lt = ch.move_mcgyver("K_LEFT")
-    print(lt)

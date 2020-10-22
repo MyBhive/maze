@@ -6,13 +6,6 @@ Creating a Labyrinthe's class to make the maze appear as well as character's pos
 
 class Labyrinthe:
 
-    player = "M"
-    guardian = "G"
-    pipe = "P"
-    needle = "N"
-    ether = "E"
-    paths = "."
-
     """
     init an empty list to make a list of lists later : Method parsing.
     """
@@ -29,15 +22,6 @@ class Labyrinthe:
                 liste = list(map(str, line))[:15]
                 # if my list from my line is bigger than 15 char, I reduce it to have only 15
                 self.map_structure.append(liste)
-
-    """
-    I show my list of lists
-    """
-
-    def show_list(self):
-        for line in self.map_structure:
-            print(line)
-
     """
     To verify that the data in my export file are correct
     """
@@ -75,58 +59,38 @@ class Labyrinthe:
                         nb_of_needle += 1
                         if nb_of_needle > 1:
                             raise ValueError("Error : you should have just 1 Needle!")
+    """
+    I show my list of lists
+    """
+
+    def show_maze(self):
+        for line in self.map_structure:
+            print(line)
 
     """
     verify if the move is possible: out of the maze, or, on a wall, or, on a path
     return None if forbidden
     """
 
-    def authorize_move(self, pos_col, pos_line):
-        len(self.map_structure[0])
-        len(self.map_structure)
-        paths = "."
-        if self.map_structure[pos_line][pos_col] != paths:
+    def authorize_position(self, pos_col, pos_line):
+        walls = "O"
+        line_size = len(self.map_structure[0]) - 1
+        column_size = len(self.map_structure) - 1
+        if (pos_line > line_size) or (pos_col > column_size):
             return False
-        else:
+        if self.map_structure[pos_line][pos_col] != walls:
             return True
+        else:
+            return False
 
     """
-    Method to find a character's position.
+   Method to write the character's position and erasing is old one
     """
 
-    def find_one_character(self, character):
-        x_character = int()
-        y_character = int()
-        for x, line in enumerate(self.map_structure):
-            for y, column in enumerate(line):
-                if character == column:
-                    x_character = int(x)
-                    y_character = int(y)
-        # return the position of this character
-        return x_character, y_character
-
-    """
-    afficher le character
-    """
-
-    def show_character_in_maze(self, character, pos_character):
-        n_line = 0
-        for line in self.map_structure:
-            if n_line == pos_character[1]:  # slicing
-                print(line[0:pos_character[0]] + [character] + line[pos_character[0]+1:])
-            else:
-                print(line)
-            n_line += 1
-
-    """
-    We def a attribut
-    to write a character
-    to the position line
-    x and column y.
-    """
-
-    def write_character(self, character, x, y):
+    def move_player(self, character, x_before, y_before, x, y):
+        self.map_structure[x_before][y_before] = "."
         self.map_structure[x][y] = character
+
     """
     Method which return the position of the character in the maze
     """
@@ -135,10 +99,25 @@ class Labyrinthe:
         return character
 
     """
+    Method which put the items in the maze
+    """
+    def put_item(self, character, x, y):
+        if self.map_structure[x][y] == ".":
+            self.map_structure[x][y] = character
+
+    """
+    Method to erase item after being picked up
+    """
+    def remove_item(self, x, y):
+        self.map_structure[x][y] = "."
+
+
+    """
     To find all things from one category like paths or walls
     """
+
     def find_all(self, character):
-        # lis of position
+        # list of position
         positions = []
         # enumerate returns 2 variables. the first one for the line and second for the column
         for x, line in enumerate(self.map_structure):
@@ -151,4 +130,4 @@ class Labyrinthe:
 if __name__ == '__main__':
     lab = Labyrinthe('laby.txt')
     (lab.pick_up_from_file())
-    lab.show_character_in_maze("M", [2, 11])
+    lab.show_maze()
