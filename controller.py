@@ -47,9 +47,9 @@ class Controller:
         while (self.player.pos_x, self.player.pos_y) != (self.guardian.pos_x, self.guardian.pos_y):
             # afficher les positions
             self.lab.show_maze()
-            self.lab.authorize_position(self.player.pos_x, self.player.pos_y)
             self.lab.move_player("M", self.player.x_before, self.player.y_before,
                                  self.player.pos_x, self.player.pos_y)
+            self.lab.authorize_position(self.player.pos_x, self.player.pos_y)
             self.lab.return_position(self.player.pos_x, self.player.pos_y)
             to_go = self.view.ask_direction()
             # move_player de la classe character à metre directement ici
@@ -95,4 +95,5 @@ class Controller:
 if __name__ == '__main__':
     con = Controller()
     con.lab.pick_up_from_file()
+    print(con.set_items_positions())
     print(con.start())
