@@ -20,28 +20,29 @@ class Controller:
         self.player = characters.McGyver(0, 0)
         self.guardian = characters.Guardian(14, 14)
 
-        self.pipe = "P"
-        self.needle = "N"
-        self.ether = "E"
-        self.items = [item.Items(self.pipe, -1, -1),
-                      item.Items(self.needle, -1, -1),
-                      item.Items(self.ether, -1, -1)]
+        self.pipe = item.Items("P", -1, -1)
+        self.needle = item.Items("N", -1, -1)
+        self.ether = item.Items("E", -1, -1)
+        self.items = []
 
         self.paths = self.lab.find_all(".")
         self.walls = self.lab.find_all("O")
 
     def set_items_positions(self):
-        self.pipe = choice(self.paths)
-        self.ether = choice(self.paths)
-        self.needle = choice(self.paths)
-        return self.ether, self.needle, self.pipe
+        self.pipe.x, self.pipe.y = choice(self.paths)
+        self.ether.x, self.ether.y = choice(self.paths)
+        self.needle.x, self.needle.y = choice(self.paths)
+        self.items = [self.pipe,
+                      self.needle,
+                      self.ether]
 
     def start(self):
         # instancier les positions
         self.set_items_positions()
-        self.lab.put_item("E", self.ether[0], self.ether[1])
-        self.lab.put_item("P", self.pipe[0], self.pipe[1])
-        self.lab.put_item("N", self.needle[0], self.needle[1])
+        
+        for element in self.items:
+            self.lab.put_item(element.name, element.x, element.y)
+                              
         self.lab.move_player("M", self.player.pos_x, self.player.pos_y,
                              self.player.pos_x, self.player.pos_y)
         # loop running as long as the player and guardian are not meeting
@@ -67,12 +68,13 @@ class Controller:
                 self.player.move_mcgyver("r")
                 self.lab.move_player("M", self.player.pos_x, self.player.pos_y - 1,
                                      self.player.pos_x, self.player.pos_y)
+            
             for element in self.items:
-                if (self.player.pos_x, self.player.pos_y) == self.set_items_positions():
-                    if element.is_collected:
+                if (self.player.pos_x, self.player.pos_y) == (element.x, element.y):
+                    if not element.is_collected:
                         element.go_to_inventory()
                         self.player.collect_item(element)
-                        self.lab.remove_item(self.items[0], self.items[1])
+                        self.lab.remove_item(element.x, element.y)
 
         if len(self.player.inventory) == 3:
             print("you won !!")
