@@ -78,7 +78,7 @@ class Labyrinthe:
         column_size = len(self.map_structure) - 1
         if (pos_line > line_size) or (pos_col > column_size):
             return False
-        if self.map_structure[pos_line][pos_col] != walls:
+        if self.map_structure[pos_col][pos_line] != walls:
             return True
         else:
             return False
@@ -111,7 +111,6 @@ class Labyrinthe:
     def remove_item(self, x, y):
         self.map_structure[x][y] = "."
 
-
     """
     To find all things from one category like paths or walls
     """
@@ -128,6 +127,7 @@ class Labyrinthe:
 
 
 if __name__ == '__main__':
-    lab = Labyrinthe('laby.txt')
-    (lab.pick_up_from_file())
-    lab.show_maze()
+    maze = Labyrinthe("laby.txt")
+    maze.pick_up_from_file()
+    walls = maze.find_all("O")
+    print(walls)

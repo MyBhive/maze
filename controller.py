@@ -13,12 +13,11 @@ Creating controller's class to manage the game
 class Controller:
     def __init__(self):
         self.lab = labyrinthe.Labyrinthe("laby.txt")
-        self.map_lab = self.lab.show_maze()
         self.lab.pick_up_from_file()
         self.view = view.View()
         self.lab.analyze_file()
 
-        self.player = characters.McGyver(0, 0, 0, 0)
+        self.player = characters.McGyver(0, 0)
         self.guardian = characters.Guardian(14, 14)
 
         self.pipe = "P"
@@ -43,57 +42,47 @@ class Controller:
         self.lab.put_item("E", self.ether[0], self.ether[1])
         self.lab.put_item("P", self.pipe[0], self.pipe[1])
         self.lab.put_item("N", self.needle[0], self.needle[1])
+        self.lab.move_player("M", self.player.pos_x, self.player.pos_y,
+                             self.player.pos_x, self.player.pos_y)
         # loop running as long as the player and guardian are not meeting
         while (self.player.pos_x, self.player.pos_y) != (self.guardian.pos_x, self.guardian.pos_y):
             # afficher les positions
             self.lab.show_maze()
-            self.lab.move_player("M", self.player.x_before, self.player.y_before,
-                                 self.player.pos_x, self.player.pos_y)
-            self.lab.authorize_position(self.player.pos_x, self.player.pos_y)
             self.lab.return_position(self.player.pos_x, self.player.pos_y)
             to_go = self.view.ask_direction()
             # move_player de la classe character à metre directement ici
-            if to_go == "u":
+            if to_go == "u" and self.lab.authorize_position(self.player.pos_x - 1, self.player.pos_y):
                 self.player.move_mcgyver("u")
-                self.player.before_move("u")
-                self.lab.move_player("M", self.player.x_before, self.player.y_before,
+                self.lab.move_player("M", self.player.pos_x + 1, self.player.pos_y,
                                      self.player.pos_x, self.player.pos_y)
-            if to_go == "d":
+            if to_go == "d" and self.lab.authorize_position(self.player.pos_x + 1, self.player.pos_y):
                 self.player.move_mcgyver("d")
-                self.player.before_move("d")
-                self.lab.move_player("M", self.player.x_before, self.player.y_before,
+                self.lab.move_player("M", self.player.pos_x - 1, self.player.pos_y,
                                      self.player.pos_x, self.player.pos_y)
-            if to_go == "l":
+            if to_go == "l" and self.lab.authorize_position(self.player.pos_x, self.player.pos_y - 1):
                 self.player.move_mcgyver("l")
-                self.player.before_move('l')
-                self.lab.move_player("M", self.player.x_before, self.player.y_before,
+                self.lab.move_player("M", self.player.pos_x, self.player.pos_y + 1,
                                      self.player.pos_x, self.player.pos_y)
-            if to_go == "r":
+            if to_go == "r" and self.lab.authorize_position(self.player.pos_x, self.player.pos_y + 1):
                 self.player.move_mcgyver("r")
-                self.player.before_move('r')
-                self.lab.move_player("M", self.player.x_before, self.player.y_before,
+                self.lab.move_player("M", self.player.pos_x, self.player.pos_y - 1,
                                      self.player.pos_x, self.player.pos_y)
             for element in self.items:
-                if self.player.position() == element:
-                    if element == self.pipe:
-                        self.player.collect_item(self.pipe)
-                        self.lab.remove_item(self.pipe[0], self.pipe[1])
-                    if element == self.needle:
-                        self.player.collect_item(self.needle)
-                        self.lab.remove_item(self.needle[0], self.needle[1])
-                    if element == self.ether:
-                        self.player.collect_item(self.ether)
-                        self.lab.remove_item(self.ether[0], self.ether[1])
+                if (self.player.pos_x, self.player.pos_y) == self.set_items_positions():
+                    if element.is_collected:
+                        element.go_to_inventory()
+                        self.player.collect_item(element)
+                        self.lab.remove_item(self.items[0], self.items[1])
 
         if len(self.player.inventory) == 3:
-            print("gagné")
+            print("you won !!")
 
-        if len(self.player.inventory) < 3:
-            print("perdu!")
+        if len(self.player.inventory) != 3:
+            print("game over !")
 
 
 if __name__ == '__main__':
     con = Controller()
-    con.lab.pick_up_from_file()
     print(con.set_items_positions())
     print(con.start())
+    print((len(con.player.inventory)))

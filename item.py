@@ -14,7 +14,6 @@ class Items:
     def set_position(self):
         return self.x, self.y
 
+    def go_to_inventory(self):
+        self.is_collected = True
 
-if __name__ == '__main__':
-    it = Items("P", 0, 5)
-    print(it.set_position())

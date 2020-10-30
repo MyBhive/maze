@@ -8,8 +8,9 @@ RED_COLOR = (250, 15, 30)
 # Screen characteristics
 NB_SPRITE_SIDE = 15
 SPRITE_SIZE = 30
-SCREEN_HEIGHT = NB_SPRITE_SIDE * SPRITE_SIZE
-SCREEN_WIDTH = NB_SPRITE_SIDE * SPRITE_SIZE
+BANDEAU = 30
+SCREEN_WIDTH = int(NB_SPRITE_SIDE * SPRITE_SIZE)
+SCREEN_HEIGHT = int(NB_SPRITE_SIDE * SPRITE_SIZE + 30)
 WINDOW_TITLE = "Maze : McGyver!"
 
 # Maze images
@@ -28,4 +29,7 @@ PIPE_LETTER = "P"
 ETHER_LETTER = "E"
 
 # Text for the end of the game
-TEXT_END = "PRESS ESCAPE TO QUIT THE GAME"
+WIN = 'You win! You can escape!'
+LOOSE = "You can't escape! The guard kill you!"
+
+

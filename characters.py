@@ -11,7 +11,6 @@ class Character:
         self.pos_x = int(pos_x)
         self.pos_y = int(pos_y)
 
-
     def picture_from_character(self, character):
         self.character = character
         return self.character
@@ -24,11 +23,9 @@ using 'M' for McGyver
 
 
 class McGyver(Character):
-    def __init__(self, pos_x, pos_y, x_before, y_before):
+    def __init__(self, pos_x, pos_y):
         super().__init__("M", pos_x, pos_y)
         self.inventory = []
-        self.x_before = x_before
-        self.y_before = y_before
         self.pos_x = pos_x
         self.pos_y = pos_y
     """
@@ -51,22 +48,6 @@ class McGyver(Character):
         elif direction == "r":
             self.pos_y += 1
             return self.pos_x, self.pos_y
-        else:
-            return False
-
-    def before_move(self, direction):
-        if direction == "u":
-            self.x_before += 1
-            return self.x_before, self.y_before
-        elif direction == "d":
-            self.x_before -= 1
-            return self.x_before, self.y_before
-        if direction == "l":
-            self.y_before += 1
-            return self.x_before, self.y_before
-        elif direction == "r":
-            self.y_before -= 1
-            return self.x_before, self.y_before
         else:
             return False
 
