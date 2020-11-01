@@ -19,24 +19,7 @@ class View:
         window.blit(background, (0, 0))
         window.display.flip()
 
-# Afficher le fond du labyrinthe et les murs
-# update pygame
 
-        if pygame.event.type == pygame.KEYDOWN:
-                # Change les coordonnées de la position de la personne
-            if pygame.event.key == pygame.K_RIGHT: nPosX += 1
-            if pygame.event.key == pygame.K_LEFT: nPosX -= 1
-            if pygame.event.key == pygame.K_UP: nPosY -= 1
-            if pygame.event.key == pygame.K_DOWN: nPosY += 1
-                # Affiche le fond, puis la personne par-dessus
-            window.blit(background, (0, 0))
-            window.blit(strike_player, (nPosX, nPosY))
-
-                # Actualise la fenêtre
-                pygame.display.flip()
-#pygame.blit(mg.sprite, mg.position)
-
-    def display_items(self):
 
 
 
