@@ -109,7 +109,7 @@ class Labyrinthe:
     Method to erase item after being picked up
     """
     def remove_item(self, x, y):
-        self.map_structure[x][y] = "."
+        self.map_structure[x][y] = "M"
 
     """
     To find all things from one category like paths or walls

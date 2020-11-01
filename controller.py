@@ -39,7 +39,6 @@ class Controller:
     def start(self):
         # instancier les positions
         self.set_items_positions()
-        
         for element in self.items:
             self.lab.put_item(element.name, element.x, element.y)
                               
@@ -85,6 +84,5 @@ class Controller:
 
 if __name__ == '__main__':
     con = Controller()
-    print(con.set_items_positions())
     print(con.start())
     print((len(con.player.inventory)))

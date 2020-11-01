@@ -30,6 +30,6 @@ ETHER_LETTER = "E"
 
 # Text for the end of the game
 WIN = 'You win! You can escape!'
-LOOSE = "You can't escape! The guard kill you!"
+LOOSE = "You can't escape! The guardian killed you!"
 
 

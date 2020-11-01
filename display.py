@@ -2,13 +2,11 @@
 
 import pygame
 import constant
-import item
-import sys
 import labyrinthe
 import controller
+import characters
 
 pygame.init()
-pygame.font.init()
 
 resolution = (constant.SCREEN_WIDTH, constant.SCREEN_HEIGHT)
 window = pygame.display.set_mode(resolution)
@@ -20,67 +18,81 @@ hero = pygame.image.load(constant.HERO_IMAGE).convert_alpha()
 guardian = pygame.image.load(constant.GUARDIAN_IMAGE).convert_alpha()
 ether = pygame.image.load(constant.ETHER_IMAGE).convert_alpha()
 pipe = pygame.image.load(constant.PIPE_IMAGE).convert_alpha()
-needle = pygame.image.load(constant.NEEDLE_IMAGE).convert_alpha()
-
-# TEXTE
-arial_font = pygame.font.SysFont("arial", 20)
-text = arial_font.render("{}".format(constant.WINDOW_TITLE), True, constant.RED_COLOR)
-window.blit(text, [0, 450])
-
-hero_x = 0
-hero_y = 0
+needle = pygame.image.load(constant.NEEDLE_IMAGE).convert()
 
 # from list to graphisme
 maze = labyrinthe.Labyrinthe("laby.txt")
 maze.pick_up_from_file()
 walls = maze.find_all("O")
 
-# item in maze ne marche pas
+# item
 con = controller.Controller()
 con.set_items_positions()
-objet = (con.pipe, con.ether, con.needle)
-for element in objet:
-    con.pipe = pygame.image.load(constant.PIPE_IMAGE).convert_alpha()
-    window.blit(con.pipe, [element[1] * constant.SPRITE_SIZE, element[0] * constant.SPRITE_SIZE])
-    con.needle = pygame.image.load(constant.NEEDLE_IMAGE).convert_alpha()
-    window.blit(con.needle, [element[1] * constant.SPRITE_SIZE, element[0] * constant.SPRITE_SIZE])
-    con.ether = pygame.image.load(constant.ETHER_IMAGE).convert_alpha()
-    window.blit(con.ether, [element[1] * constant.SPRITE_SIZE, element[0] * constant.SPRITE_SIZE])
+objet = (ether, pipe, needle)
+
+# mc gyver
+mcky = characters.McGyver(0, 0)
+mcky.pos_y = 0
+mcky.pos_y = 0
+
+# TEXTE
+arial_font = pygame.font.SysFont("arial", 20)
+text = arial_font.render("You have collected {} items".format(len(mcky.inventory)), True, constant.RED_COLOR)
+window.blit(text, [0, 450])
 
 pygame.display.flip()
+
+maze.move_player(hero, mcky.pos_y, mcky.pos_x,mcky.pos_y, mcky.pos_x)
 
 launched = True
 while launched:
     # le fond
     window.blit(background, [0, 0])
+# guardian
     window.blit(guardian, [constant.SCREEN_WIDTH - constant.SPRITE_SIZE,
                            constant.SCREEN_HEIGHT - constant.SPRITE_SIZE - constant.BANDEAU])
+
     for element in walls:
         wall = pygame.image.load(constant.WALL_IMAGE)
         window.blit(wall, [element[1] * constant.SPRITE_SIZE, element[0] * constant.SPRITE_SIZE])
+
+# les items
+    for element in con.items:
+        if element == con.pipe:
+            window.blit(pipe, (element.y * constant.SPRITE_SIZE, element.x * constant.SPRITE_SIZE))
+        if element == con.needle:
+            window.blit(needle, (element.y * constant.SPRITE_SIZE, element.x * constant.SPRITE_SIZE))
+        if element == con.ether:
+            window.blit(ether, (element.y * constant.SPRITE_SIZE, element.x * constant.SPRITE_SIZE))
+
+# mcgyver
+    window.blit(hero, [mcky.pos_x, mcky.pos_y])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             launched = False
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
-                hero_y -= 30
+                mcky.move_mcgyver("u")
             if event.key == pygame.K_DOWN:
-                hero_y += 30
+                mcky.move_mcgyver("d")
             if event.key == pygame.K_LEFT:
-                hero_x -= 30
+                mcky.move_mcgyver("l")
             if event.key == pygame.K_RIGHT:
-                hero_x += 30
+                mcky.move_mcgyver("r")
     # que mcky ne sorte pas de la fenetre
-    if hero_x <= 0:
-        hero_x = 0
-    elif hero_x >= constant.SCREEN_WIDTH - 30:
-        hero_x = constant.SCREEN_WIDTH - 30
-    if hero_y <= 0:
-        hero_y = 0
-    elif hero_y >= constant.SCREEN_HEIGHT - (30 + constant.SPRITE_SIZE):
-        hero_y = constant.SCREEN_HEIGHT - (30 + constant.SPRITE_SIZE)
+    #left
+    if mcky.pos_x <= 0:
+        mcky.pos_x = 0
+    # right
+    elif mcky.pos_x >= constant.SCREEN_WIDTH - constant.SPRITE_SIZE:
+        mcky.pos_x = constant.SCREEN_WIDTH - constant.SPRITE_SIZE
+    # up
+    if mcky.pos_y <= 0:
+        mcky.pos_y = 0
+    # down
+    elif mcky.pos_y >= constant.SCREEN_HEIGHT - (constant.BANDEAU + constant.SPRITE_SIZE):
+        mcky.pos_y = constant.SCREEN_HEIGHT - (constant.BANDEAU + constant.SPRITE_SIZE)
 
-    window.blit(hero, [hero_x, hero_y])
+    maze.authorize_position(mcky.pos_y, mcky.pos_x)
     pygame.display.flip()
-

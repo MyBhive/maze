@@ -37,16 +37,16 @@ class McGyver(Character):
 
     def move_mcgyver(self, direction):
         if direction == "u":
-            self.pos_x -= 1
+            self.pos_y -= 30
             return self.pos_x, self.pos_y
         elif direction == "d":
-            self.pos_x += 1
+            self.pos_y += 30
             return self.pos_x, self.pos_y
         if direction == "l":
-            self.pos_y -= 1
+            self.pos_x -= 30
             return self.pos_x, self.pos_y
         elif direction == "r":
-            self.pos_y += 1
+            self.pos_x += 30
             return self.pos_x, self.pos_y
         else:
             return False
