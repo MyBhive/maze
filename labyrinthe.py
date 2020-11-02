@@ -7,15 +7,17 @@ Creating a Labyrinthe's class to make the maze appear as well as character's pos
 class Labyrinthe:
 
     """
-    init an empty list to make a list of lists later : Method parsing.
+     To initialize an empty list to make a list of lists.
     """
 
     def __init__(self, name_file):
         self.map_structure = []
         self.file = name_file
 
+    """
+    Method to open a file and read it line per line to extract all the "O" and "." existing inside
+    """
     def pick_up_from_file(self):
-        # I open my file and read it line per line to take out all the "o" and "t" existing inside
         with open(self.file, "r") as file:
             for content in range(15):
                 line = file.readline()
@@ -23,7 +25,8 @@ class Labyrinthe:
                 # if my list from my line is bigger than 15 char, I reduce it to have only 15
                 self.map_structure.append(liste)
     """
-    To verify that the data in my export file are correct
+    Method to verify if the data in my export file are correct : 
+    We need to have only the hero(M), the guardian(G), the walls(O), the paths(.) and the items(E,P,N)
     """
 
     def analyze_file(self):
@@ -60,7 +63,7 @@ class Labyrinthe:
                         if nb_of_needle > 1:
                             raise ValueError("Error : you should have just 1 Needle!")
     """
-    I show my list of lists
+    Method too show my list of lists: structure of the maze
     """
 
     def show_maze(self):
@@ -68,23 +71,27 @@ class Labyrinthe:
             print(line)
 
     """
-    verify if the move is possible: out of the maze, or, on a wall, or, on a path
-    return None if forbidden
+     Method to verify if the move is possible: 
+     if out of the maze --> return False
+     if in a wall --> return False
+     otherwise --> return True
     """
 
-    def authorize_position(self, pos_col, pos_line):
-        walls = "O"
+    def authorize_pos(self, pos_col, pos_line):
+        wall = "O"
         line_size = len(self.map_structure[0]) - 1
         column_size = len(self.map_structure) - 1
         if (pos_line > line_size) or (pos_col > column_size):
             return False
-        if self.map_structure[pos_col][pos_line] != walls:
-            return True
-        else:
+        if (pos_line < 0) or (pos_col < 0):
             return False
+        if self.map_structure[pos_col][pos_line] == wall:
+            return False
+        else:
+            return True
 
     """
-   Method to write the character's position and erasing is old one
+   Method to write the character's new position and erase is old one placing a path(.)
     """
 
     def move_player(self, character, x_before, y_before, x, y):
@@ -99,7 +106,8 @@ class Labyrinthe:
         return character
 
     """
-    Method which put the items in the maze
+    Method which put the items in the maze. 
+    We take a path area and we place the item instead.
     """
     def put_item(self, character, x, y):
         if self.map_structure[x][y] == ".":
@@ -107,6 +115,7 @@ class Labyrinthe:
 
     """
     Method to erase item after being picked up
+    We take the item position and we place the path instead.
     """
     def remove_item(self, x, y):
         self.map_structure[x][y] = "M"
