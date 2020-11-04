@@ -1,6 +1,5 @@
-import pygame
+# coding: utf-8
 
-import constant
 """
 Create a class Character with attribute the character, and his x,y position
 """
@@ -32,13 +31,6 @@ class McGyver(Character):
         self.pos_y = pos_y
 
     """
-    Method to learn the position x,y
-    """
-
-    def position(self):
-        return self.pos_x, self.pos_y
-
-    """
     Method to move Mc Gyver in the maze depending on the player orders.
     Up / Down : the y position change 
     Left / Right : the x position change
@@ -47,16 +39,12 @@ class McGyver(Character):
     def move_mcgyver(self, direction):
         if direction == "u":
             self.pos_y -= 1
-            return self.pos_x, self.pos_y
         elif direction == "d":
             self.pos_y += 1
-            return self.pos_x, self.pos_y
         if direction == "l":
             self.pos_x -= 1
-            return self.pos_x, self.pos_y
         elif direction == "r":
             self.pos_x += 1
-            return self.pos_x, self.pos_y
         else:
             return False
 
@@ -77,7 +65,6 @@ Using "G" for Guardian
 class Guardian(Character):
     def __init__(self, pos_x, pos_y,):
         super().__init__("G", pos_x, pos_y)
-
 
     def position(self):
         return self.pos_x, self.pos_y

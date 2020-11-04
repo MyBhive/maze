@@ -1,3 +1,4 @@
+# coding: utf-8
 
 """
 Creating a Labyrinthe's class to make the maze appear as well as character's position

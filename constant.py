@@ -1,3 +1,4 @@
+# coding: utf-8
 
 """Graphic and Visual elements of the maze"""
 
@@ -21,7 +22,7 @@ HERO_IMAGE = "Ressource/MacGyver.png"
 NEEDLE_IMAGE = "Ressource/aiguille.png"
 ETHER_IMAGE = "Ressource/ether.png"
 PIPE_IMAGE = "Ressource/tube_plastique.png"
-BANDEAU_IMAGE = "Ressources/CarreNoir.png"
+BANDEAU_IMAGE = "Ressource/black_border.png"
 
 # 3 objects to find
 NEEDLE_LETTER = "N"
@@ -31,5 +32,3 @@ ETHER_LETTER = "E"
 # Text for the end of the game
 WIN = 'You win! You can escape!'
 LOOSE = "You can't escape! The guardian killed you!"
-
-

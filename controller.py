@@ -1,5 +1,7 @@
-from random import choice
+# coding: utf-8
+
 from pygame import *
+from random import choice
 
 from characters import *
 from item import *
@@ -10,7 +12,9 @@ from constant import *
 """
 Creating controller's class to manage the game
 """
+
 pygame.init()
+clock = pygame.time.Clock()
 
 
 class Controller:
@@ -36,12 +40,52 @@ class Controller:
     Method to define a random position x,y for each of the 3 items
     """
     def set_items_positions(self):
-        self.pipe.x, self.pipe.y = choice(self.paths)
-        self.ether.x, self.ether.y = choice(self.paths)
-        self.needle.x, self.needle.y = choice(self.paths)
         self.items = [self.pipe,
                       self.needle,
                       self.ether]
+        for item in self.items:
+            item.y, item.x = choice(self.paths)
+
+    """
+    Method to upload all the images necessary for building the maze in 2D
+    """
+    def load_structure_2d(self):
+        # load the background in 2D
+        self.view.window.blit(self.view.background, [0, 0])
+        self.view.window.blit(self.view.band, [0, 450])
+        # load path in 2D
+        for element in self.paths:
+            self.view.window.blit(self.view.path,
+                                  [element[1] * SPRITE_SIZE,
+                                   element[0] * SPRITE_SIZE])
+        # load the walls in 2D
+        for element in self.walls:
+            self.view.window.blit(self.view.wall,
+                                  [element[1] * SPRITE_SIZE,
+                                   element[0] * SPRITE_SIZE])
+        # load the guard in 2D
+        self.view.window.blit(self.view.guardian,
+                              [SCREEN_WIDTH - SPRITE_SIZE,
+                               SCREEN_HEIGHT - SPRITE_SIZE - BANDEAU])
+
+        # load Mc Gyver in 2D
+        self.view.window.blit(self.view.hero,
+                              [self.player.pos_x * SPRITE_SIZE,
+                               self.player.pos_y * SPRITE_SIZE])
+        # load items in 2D
+        for element in self.items:
+            if element == self.pipe:
+                self.view.window.blit(self.view.pipe,
+                                      [element.x * SPRITE_SIZE,
+                                       element.y * SPRITE_SIZE])
+            if element == self.needle:
+                self.view.window.blit(self.view.needle,
+                                      [element.x * SPRITE_SIZE,
+                                       element.y * SPRITE_SIZE])
+            if element == self.ether:
+                self.view.window.blit(self.view.ether,
+                                      [element.x * SPRITE_SIZE,
+                                       element.y * SPRITE_SIZE])
 
     """
     Method to retrieve items.
@@ -49,31 +93,16 @@ class Controller:
     - the item get in his inventory
     - the item disappear from the map 
     """
+
     def retrieve_items(self):
         for element in self.items:
-            if (self.player.pos_y, self.player.pos_x) == (element.y, element.x):
-                if not element.is_collected:
-                    element.go_to_inventory()
-                    self.player.collect_item(element)
-                    self.lab.remove_item(element.y, element.x)
-
-    """
-    Method to set 2D for the items
-    """
-    def load_items(self):
-        for element in self.items:
-            if element == self.pipe:
-                self.view.window.blit(self.view.pipe,
-                                      (element.y * SPRITE_SIZE,
-                                       element.x * SPRITE_SIZE))
-            if element == self.needle:
-                self.view.window.blit(self.view.needle,
-                                      (element.y * SPRITE_SIZE,
-                                       element.x * SPRITE_SIZE))
-            if element == self.ether:
-                self.view.window.blit(self.view.ether,
-                                      (element.y * SPRITE_SIZE,
-                                       element.x * SPRITE_SIZE))
+            if (self.player.pos_x, self.player.pos_y) == (element.x, element.y):
+                if not element.is_collected:  # not false
+                    element.go_to_inventory()  # inventory.append(item)
+                    self.player.collect_item(element)  # true
+                    # delete item image from the map
+                    self.lab.remove_item(element.x, element.y)
+                    self.items.remove(element)
 
     """
     Method to write a "win or loose" message depending of the achievement of Mc Gyver
@@ -81,34 +110,16 @@ class Controller:
     - if Mc Gyver collected all of the 3 items then he won otherwise he lost.
     """
     def win_or_loose(self):
-        if (self.player.pos_x, self.player.pos_y) == (self.guardian.pos_x, self.guardian.pos_y):
+        final = True
+        while final:
+            for action in pygame.event.get():
+                if action.type == pygame.QUIT:
+                    final = False
+            self.view.window.blit(self.view.background, [0, 0])
             if len(self.player.inventory) == 3:
                 self.view.win()
-            if len(self.player.inventory) != 3:
+            else:
                 self.view.loose()
-    """
-    Method to upload all the images necessary for building the maze in 2D
-    """
-    def upload_structure_2d(self):
-        # load the background in 2D
-        self.view.window.blit(self.view.background, [0, 0])
-        # load the guard in 2D
-        self.view.window.blit(self.view.guardian, [SCREEN_WIDTH - SPRITE_SIZE,
-                                                   SCREEN_HEIGHT - SPRITE_SIZE - BANDEAU])
-        # load the walls in 2D
-        for element in self.walls:
-            wall = self.view.wall
-            self.view.window.blit(wall, [element[1] * SPRITE_SIZE, element[0] * SPRITE_SIZE])
-        # load items in 2D
-        for element in self.items:
-            if element == self.pipe:
-                self.view.window.blit(self.view.pipe, (element.y * SPRITE_SIZE, element.x * SPRITE_SIZE))
-            if element == self.needle:
-                self.view.window.blit(self.view.needle, (element.y * SPRITE_SIZE, element.x * SPRITE_SIZE))
-            if element == self.ether:
-                self.view.window.blit(self.view.ether,  (element.y * SPRITE_SIZE, element.x * SPRITE_SIZE))
-        # load Mc Gyver in 2D
-        self.view.window.blit(self.view.hero, [self.player.pos_x * SPRITE_SIZE, self.player.pos_y * SPRITE_SIZE])
 
     """
     Method to set the items and Mcg Gyver in the maze before to start the loop
@@ -119,8 +130,8 @@ class Controller:
         for element in self.items:
             self.lab.put_item(element.name, element.x, element.y)
         # instantiate Mc Gyver positions
-        self.lab.move_player("M", self.player.pos_x, self.player.pos_y,
-                             self.player.pos_x, self.player.pos_y)
+        self.lab.move_player("M", self.player.pos_y, self.player.pos_x,
+                             self.player.pos_y, self.player.pos_x)
         # get Mc Gyver positions
         self.lab.return_position(self.player.pos_y, self.player.pos_x)
 
@@ -131,45 +142,36 @@ class Controller:
         # instantiate pygame loop to run correctly the game and close it easily with the exit cross if wanted
         launched = True
         while launched:
-            self.upload_structure_2d()
+            self.load_structure_2d()
             for action in pygame.event.get():
                 if action.type == pygame.QUIT:
                     launched = False
                 elif action.type == pygame.KEYUP:
-                    # actions of movement: if Mc gGyver moves, we change is position, set it and delete the old one
-                    if action.key == pygame.K_UP and \
-                                self.lab.authorize_pos(self.player.pos_y - 1, self.player.pos_x):
-                        self.player.move_mcgyver("u")
-                        self.lab.move_player("M", self.player.pos_y + 1, self.player.pos_x,
-                                             self.player.pos_y, self.player.pos_x)
+                    # actions of movement: press an arrow's keyboard to actuate a move
+                    if action.key == pygame.K_UP:
+                        # to block the move if out of a path
+                        if self.lab.authorize_pos(self.player.pos_y - 1, self.player.pos_x):
+                            # visibility of the action of movement
+                            self.player.move_mcgyver("u")
 
-                    if action.key == pygame.K_DOWN and \
-                            self.lab.authorize_pos(self.player.pos_y + 1, self.player.pos_x):
-                        self.player.move_mcgyver("d")
-                        self.lab.move_player("M",  self.player.pos_y - 1, self.player.pos_x,
-                                             self.player.pos_y, self.player.pos_x)
+                    if action.key == pygame.K_DOWN:
+                        if self.lab.authorize_pos(self.player.pos_y + 1, self.player.pos_x):
+                            self.player.move_mcgyver("d")
 
-                    if action.key == pygame.K_LEFT and \
-                            self.lab.authorize_pos(self.player.pos_y, self.player.pos_x - 1):
-                        self.player.move_mcgyver("l")
-                        self.lab.move_player("M",  self.player.pos_y, self.player.pos_x + 1,
-                                             self.player.pos_y, self.player.pos_x)
+                    if action.key == pygame.K_LEFT:
+                        if self.lab.authorize_pos(self.player.pos_y, self.player.pos_x - 1):
+                            self.player.move_mcgyver("l")
 
-                    if action.key == pygame.K_RIGHT and \
-                            self.lab.authorize_pos(self.player.pos_y, self.player.pos_x + 1):
-                        self.player.move_mcgyver("r")
-                        self.lab.move_player("M", self.player.pos_y, self.player.pos_x - 1,
-                                             self.player.pos_y, self.player.pos_x)
+                    if action.key == pygame.K_RIGHT:
+                        if self.lab.authorize_pos(self.player.pos_y, self.player.pos_x + 1):
+                            self.player.move_mcgyver("r")
+            # when the player meet the guardian: screen win or loose the game
+            if (self.player.pos_x, self.player.pos_y) == (self.guardian.pos_x, self.guardian.pos_y):
+                launched = False
+                self.win_or_loose()
             # pick up the items, put them in the inventory and delete their old position
             self.retrieve_items()
             # view of the inventory in 2D
             self.view.show_inventory(self.player)
-            # action of wining or losing depending of the score
-            self.win_or_loose()
-            # refresh the pygame maze with a flip
-            pygame.display.flip()
-
-
-if __name__ == '__main__':
-    con = Controller()
-    print(con.set_items_positions())
+            # frame time: to have the same speed (image per second) whatever the computer used
+            clock.tick(30)
