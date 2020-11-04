@@ -1,4 +1,5 @@
-MAZE 
+MAZE:
+
 (It is a on level maze)
 Help Mac Gyver to escape the maze!
 
@@ -17,11 +18,12 @@ At the moment that your player is at the same position of the guard, the game st
 The items change their places at each new start of the game.
 
 ---------------------------------------------------------------------------------------------
-RUN THE GAME
+RUN THE GAME:
+
 Run_game.py
 
 ----------------------------------------------------------------------------------------------
-FEATURES
+FEATURES:
 
 Encoding:
 Python 3
@@ -38,38 +40,46 @@ Fork:
 https://github.com/MyBhive/maze/tree/essai2
 
 -----------------------------------------------------------------------------------------------
-DESCRIPTION
+DESCRIPTION:
+
 Folder
 
 Resource:
 Contain all the necessary images to build the project
 
-Files.py
-Install.py:		 file to install “requirement.txt”
+
+Python files
+
+Install.py:	file to install “requirement.txt”
+
 Characters.py: 	Mother class Character  + Children classes : MacGyver and Guardian
+
 Constant.py
+
 Controller.py: 	import of all the classes to structure the global game
-Item.py: 		Class item (name, position and collect)
-Labyrinthe.py:	Class Labyrinthe to analyse laby,txt and create all the method necessary      for running the maze structure
-View.py: 		loading of the images and initiate the texts necessaries in the game
+
+Item.py: 	Class item (name, position and collect)
+
+Labyrinthe.py:	Class Labyrinthe to analyse laby,txt and create all the method necessary to run the maze structure
+
+View.py: 	loading of the images and initiate the texts necessaries in the game
+
 Run_game.py: 	file to start the game
 
 
-Files.txt
-Laby.txt: structure of the maze (“M” for McGyver, “G” for Guardian, “O” for walls and “.” for path
+Text files
+
+Laby.txt: 	structure of the maze (“M” for McGyver, “G” for Guardian, “O” for walls and “.” for path
+
 Requirement.txt
 
+----------------------------------------------------------------------------------------------
+TO CONTRIBUTE: 
+
+You need to respect PEP8 !!!  1- Fork it ---  2- Create your feature branch ---  3- Commit your changes ---   4- Push to your branch ---   5- create a pull request
 
 -----------------------------------------------------------------------------------------------
-TO CONTRIBUTE
-You need to respect PEP8
-•	Fork it
-•	Create your feature branch (git checkout -b my-new-feature)
-•	Commit your changes (git commit -am 'Add some feature')
-•	Push to the branch (git push origin my-new-feature)
-•	Create new Pull Request
------------------------------------------------------------------------------------------------
-WRITTEN BY
+WRITTEN BY:
 MyBhive 
 
 My most sincere thanks to Geoffrey who helped me a lot to understand the python programming logic.
