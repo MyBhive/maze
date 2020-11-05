@@ -11,10 +11,6 @@ class Character:
         self.pos_x = int(pos_x)
         self.pos_y = int(pos_y)
 
-    def picture_from_character(self, character):
-        self.character = character
-        return self.character
-
 
 """ Create the McGyver class out of the mother class: Character
 using 'M' for McGyver
