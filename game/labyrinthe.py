@@ -7,16 +7,15 @@ Creating a Labyrinthe's class to make the maze appear as well as character's pos
 
 class Labyrinthe:
 
-    """
-     To initialize an empty list to make a list of lists.
-    """
+    """ To initialize an empty list to make a list of lists."""
 
     def __init__(self, name_file):
         self.map_structure = []
         self.file = name_file
 
     """
-    Method to open a file and read it line per line to extract all the "O" and "." existing inside
+    Method to open a file and read it line per line
+    to extract all the "O" and "." existing inside
     """
     def pick_up_from_file(self):
         with open(self.file, "r") as file:
@@ -27,7 +26,8 @@ class Labyrinthe:
                 self.map_structure.append(liste)
     """
     Method to verify if the data in my export file are correct : 
-    We need to have only the hero(M), the guardian(G), the walls(O), the paths(.) and the items(E,P,N)
+    We need to have only the hero(M), the guardian(G), 
+    the walls(O), the paths(.) and the items(E,P,N)
     """
 
     def analyze_file(self):
@@ -39,33 +39,45 @@ class Labyrinthe:
         for index_line, line in enumerate(self.map_structure):
             for index_element, element in enumerate(line):
                 if element not in ["M", "G", "E", "P", "N", "O", "."]:
-                    raise ValueError("Error in the text file at the line:" + str(index_line + 1) +
-                                     ", the column" + str(index_element + 1) +
-                                     ". Item" + element + "not allowed")
+                    raise ValueError("Error in the text file at the line:"
+                                     + str(index_line + 1)
+                                     + ", the column"
+                                     + str(index_element + 1)
+                                     + ". Item"
+                                     + element
+                                     + "not allowed")
                 else:
                     if element == "M":
                         nb_of_mcgyver += 1
                         if nb_of_mcgyver > 1:
-                            raise ValueError("Error : you should have just 1 Mcgyver!")
+                            raise ValueError(
+                                "Error : you should have just 1 Mcgyver!"
+                            )
                     if element == "G":
                         nb_of_guardian += 1
                         if nb_of_guardian > 1:
-                            raise ValueError("Error : you should have just 1 Guardian!")
+                            raise ValueError(
+                                "Error : you should have just 1 Guardian!"
+                            )
                     if element == "P":
                         nb_of_pipe += 1
                         if nb_of_pipe > 1:
-                            raise ValueError("Error : you should have just 1 Pipe!")
+                            raise ValueError(
+                                "Error : you should have just 1 Pipe!"
+                            )
                     if element == "E":
                         nb_of_ether += 1
                         if nb_of_ether > 1:
-                            raise ValueError("Error : you should have just 1 Ether!")
+                            raise ValueError(
+                                "Error : you should have just 1 Ether!"
+                            )
                     if element == "N":
                         nb_of_needle += 1
                         if nb_of_needle > 1:
-                            raise ValueError("Error : you should have just 1 Needle!")
-    """
-    Method too show my list of lists: structure of the maze
-    """
+                            raise ValueError(
+                                "Error : you should have just 1 Needle!"
+                            )
+    """ Method too show my list of lists: structure of the maze """
 
     def show_maze(self):
         for line in self.map_structure:
@@ -91,39 +103,33 @@ class Labyrinthe:
         else:
             return True
 
-    """
-   Method to write the character's new position and erase is old one placing a path(.)
+    """ Method to write the character's new position 
+    and erase is old one placing a path(.)
     """
 
     def move_player(self, character, x_before, y_before, x, y):
         self.map_structure[x_before][y_before] = "."
         self.map_structure[x][y] = character
 
-    """
-    Method which return the position of the character in the maze
-    """
+    """ Method which return the position of the character in the maze """
     def return_position(self, x, y):
         character = self.map_structure[x][y]
         return character
 
-    """
-    Method which put the items in the maze. 
+    """ Method which put the items in the maze. 
     We take a path area and we place the item instead.
     """
     def put_item(self, character, x, y):
         if self.map_structure[x][y] == ".":
             self.map_structure[x][y] = character
 
-    """
-    Method to erase item after being picked up
+    """ Method to erase item after being picked up
     We take the item position and we place the path instead.
     """
     def remove_item(self, x, y):
         self.map_structure[x][y] = "M"
 
-    """
-    To find all things from one category like paths or walls
-    """
+    """ To find all things from one category like paths or walls """
 
     def find_all(self, character):
         # list of position
@@ -134,10 +140,3 @@ class Labyrinthe:
                 if character == column:
                     positions.append((x, y))
         return positions
-
-
-if __name__ == '__main__':
-    maze = Labyrinthe("laby.txt")
-    maze.pick_up_from_file()
-    walls = maze.find_all("O")
-    print(walls)

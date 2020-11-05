@@ -15,14 +15,14 @@ SCREEN_HEIGHT = int(NB_SPRITE_SIDE * SPRITE_SIZE + 30)
 WINDOW_TITLE = "Maze : McGyver!"
 
 # Maze images
-BACKGROUND_IMAGE = "Ressource/background.jpg"
-GUARDIAN_IMAGE = "Ressource/Gardien.png"
-WALL_IMAGE = "Ressource/mur.png"
-HERO_IMAGE = "Ressource/MacGyver.png"
-NEEDLE_IMAGE = "Ressource/aiguille.png"
-ETHER_IMAGE = "Ressource/ether.png"
-PIPE_IMAGE = "Ressource/tube_plastique.png"
-BANDEAU_IMAGE = "Ressource/black_border.png"
+BACKGROUND_IMAGE = "game/Ressource/background.jpg"
+GUARDIAN_IMAGE = "game/Ressource/Gardien.png"
+WALL_IMAGE = "game/Ressource/mur.png"
+HERO_IMAGE = "game/Ressource/MacGyver.png"
+NEEDLE_IMAGE = "game/Ressource/aiguille.png"
+ETHER_IMAGE = "game/Ressource/ether.png"
+PIPE_IMAGE = "game/Ressource/tube_plastique.png"
+BANDEAU_IMAGE = "game/Ressource/black_border.png"
 
 # 3 objects to find
 NEEDLE_LETTER = "N"

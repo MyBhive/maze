@@ -2,13 +2,13 @@
 
 import pygame
 
-from constant import *
+from game.constant import *
 
 
 pygame.init()
 
-"""
-Initialize a View class to download all the images and set the texts
+"""Initialize a View class 
+to download all the images and set the texts
 """
 
 
@@ -29,15 +29,19 @@ class View:
         self.pipe = pygame.image.load(PIPE_IMAGE).convert_alpha()
         self.needle = pygame.image.load(NEEDLE_IMAGE).convert()
         self.ether = pygame.image.load(ETHER_IMAGE).convert_alpha()
-        self.load_items = [self.pipe, self.needle, self.ether]
+        self.load_items = [self.pipe,
+                           self.needle,
+                           self.ether]
         # load character's images
         self.guardian = pygame.image.load(GUARDIAN_IMAGE).convert_alpha()
         self.hero = pygame.image.load(HERO_IMAGE).convert_alpha()
 
     def show_inventory(self, hero):  # message to see the collect of the items
         arial_font = pygame.font.SysFont("arial", 20)
-        text = arial_font.render("You have collected {} item(s)".format(len(hero.inventory)),
-                                 True, RED_COLOR)
+        text = arial_font.render("You have collected {} item(s)".
+                                 format(len(hero.inventory)),
+                                 True,
+                                 RED_COLOR)
         self.window.blit(text, [0, 450])
         pygame.display.flip()
 

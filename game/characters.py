@@ -1,7 +1,7 @@
 # coding: utf-8
 
-"""
-Create a class Character with attribute the character, and his x,y position
+"""Create a class Character
+with attribute the character, and his x,y position
 """
 
 
@@ -16,10 +16,9 @@ class Character:
         return self.character
 
 
-"""
-Create the McGyver class out of the mother class: Character
+""" Create the McGyver class out of the mother class: Character
 using 'M' for McGyver
-Mc gyver also owns a inventory to collect items in the game.
+McGyver also owns a inventory to collect items in the game.
 """
 
 
@@ -30,8 +29,7 @@ class McGyver(Character):
         self.pos_x = pos_x
         self.pos_y = pos_y
 
-    """
-    Method to move Mc Gyver in the maze depending on the player orders.
+    """ Method to move Mc Gyver in the maze depending on the player orders.
     Up / Down : the y position change 
     Left / Right : the x position change
     """
@@ -48,16 +46,13 @@ class McGyver(Character):
         else:
             return False
 
-    """
-    To collect items and add them in the inventory
-    """
+    """ To collect items and add them in the inventory """
 
     def collect_item(self, item):
         self.inventory.append(item)
 
 
-"""
-Create the Guardian class out of the mother class: Character
+""" Create the Guardian class out of the mother class: Character
 Using "G" for Guardian
 """
 

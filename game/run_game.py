@@ -1,12 +1,10 @@
 # coding: utf-8
 
-from controller import *
+from game.controller import *
 
 pygame.init()
 
-"""
-Class to call all the classes and condense the code for running the game
-"""
+""" Class to call all the classes and condense the code for running the game """
 
 
 class RunGame:
