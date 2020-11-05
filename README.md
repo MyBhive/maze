@@ -13,10 +13,10 @@ It’s a 15x15 maze.
 
 `Goal:`
 **You need to collect all of the 3 items** (a needle, a pipe and ether) to build a syringe and put the guard to sleep. That’s his only way to go out! 
-You just need to go on the top of an item to collect it. It will directly go to your inventory (you inventory is visible during the game).
+You just need to go on the top of an item to collect it. It will directly go to your inventory (your inventory is visible below during the game).
 
-**If you meet the guard without all of it, the guard will kill you.** 
-At the moment that your player is at the same position of the guard, the game stops. You need to close the window and restart the game to play one more time.
+**If you meet the guard without all 3 items, the guard will kill you.** 
+At the moment that your player is at the same position as the guard, the game stops. You need to close the window and restart the game to play one more time.
 The items change their places at each new start of the game.
 
 ---------------------------------------------------------------------------------------------
