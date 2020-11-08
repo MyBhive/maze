@@ -104,14 +104,6 @@ class Labyrinthe:
         else:
             return True
 
-    """ Method to write the character's new position 
-    and erase is old one placing a path(.)
-    """
-
-    def move_player(self, character, x_before, y_before, x, y):
-        self.map_structure[x_before][y_before] = "."
-        self.map_structure[x][y] = character
-
     """ Method which return the position of the character in the maze """
     def return_position(self, x, y):
         character = self.map_structure[x][y]
@@ -123,12 +115,6 @@ class Labyrinthe:
     def put_item(self, character, x, y):
         if self.map_structure[x][y] == ".":
             self.map_structure[x][y] = character
-
-    """ Method to erase item after being picked up
-    We take the item position and we place the path instead.
-    """
-    def remove_item(self, x, y):
-        self.map_structure[x][y] = "M"
 
     """ To find all things from one category like paths or walls """
 

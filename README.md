@@ -22,10 +22,12 @@ The items change their places at each new start of the game.
 ---------------------------------------------------------------------------------------------
 []()**RUN THE GAME:**
 
-- Inside "game" file
+`Installation required:`
 
-> Run_game.py
->
+Inside the folder "setting" open the file "install.py"
+!! Don’t forget to run cmd or powershell as administrator !
+
+To start the game after that, inside the folder "game" open the file "Run_game.py"
 
 ----------------------------------------------------------------------------------------------
 []()**FEATURES:**
@@ -36,10 +38,6 @@ Python 3
 `Launched:`
 Pygame
 (works with Pygame 1 and 2)
-
-`Installation required:`
-Python install.py
-!! Don’t forget to run cmd or powershell as administrator !!
 
 `Fork:`
 https://github.com/MyBhive/maze.git

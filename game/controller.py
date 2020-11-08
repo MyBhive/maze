@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 class Controller:
     def __init__(self):
         # calling classes
-        self.lab = lab.Labyrinthe("game/laby.txt")
+        self.lab = lab.Labyrinthe("game/ressource/laby.txt")
         self.lab.pick_up_from_file()
         self.view = view.View()
         self.lab.analyze_file()
@@ -41,6 +41,9 @@ class Controller:
                       self.ether]
         for item in self.items:
             item.y, item.x = choice(self.paths)
+            # make sure it will never be 2 items at the same position
+            if self.needle == self.pipe or self.ether:
+                item.y, item.x = choice(self.paths)
 
     """ Method to upload all the images necessary for building the maze in 2D """
     def load_structure_2d(self):
@@ -94,7 +97,6 @@ class Controller:
                     element.go_to_inventory()  # inventory.append(item)
                     self.player.collect_item(element)  # true
                     # delete item image from the map
-                    self.lab.remove_item(element.x, element.y)
                     self.items.remove(element)
 
     """ Method to write a "win or loose" message depending of the achievement of Mc Gyver
@@ -121,12 +123,6 @@ class Controller:
             self.lab.put_item(element.name,
                               element.x,
                               element.y)
-        # instantiate Mc Gyver positions
-        self.lab.move_player("M",
-                             self.player.pos_y,
-                             self.player.pos_x,
-                             self.player.pos_y,
-                             self.player.pos_x)
 
     """ Game loop to run the game """
     def loop(self):
@@ -149,34 +145,22 @@ class Controller:
                                                   self.player.pos_x):
                             # visibility of the action of movement
                             self.player.move_mcgyver("u")
-                            self.lab.move_player("M", self.player.pos_y + 1,
-                                                 self.player.pos_x,
-                                                 self.player.pos_y,
-                                                 self.player.pos_x)
+
                     if action.key == pygame.K_DOWN:
                         if self.lab.authorize_pos(self.player.pos_y + 1,
                                                   self.player.pos_x):
                             self.player.move_mcgyver("d")
-                            self.lab.move_player("M", self.player.pos_y - 1,
-                                                 self.player.pos_x,
-                                                 self.player.pos_y,
-                                                 self.player.pos_x)
+
                     if action.key == pygame.K_LEFT:
                         if self.lab.authorize_pos(self.player.pos_y,
                                                   self.player.pos_x - 1):
                             self.player.move_mcgyver("l")
-                            self.lab.move_player("M", self.player.pos_y,
-                                                 self.player.pos_x + 1,
-                                                 self.player.pos_y,
-                                                 self.player.pos_x)
+
                     if action.key == pygame.K_RIGHT:
                         if self.lab.authorize_pos(self.player.pos_y,
                                                   self.player.pos_x + 1):
                             self.player.move_mcgyver("r")
-                            self.lab.move_player("M", self.player.pos_y,
-                                                 self.player.pos_x - 1,
-                                                 self.player.pos_y,
-                                                 self.player.pos_x)
+
             # when the player meet the guardian: screen win or loose the game
             if (self.player.pos_x, self.player.pos_y) == (self.guardian.pos_x,
                                                           self.guardian.pos_y):
