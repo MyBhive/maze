@@ -23,12 +23,3 @@ NEEDLE_IMAGE = "game/Ressource/aiguille.png"
 ETHER_IMAGE = "game/Ressource/ether.png"
 PIPE_IMAGE = "game/Ressource/tube_plastique.png"
 BANDEAU_IMAGE = "game/Ressource/black_border.png"
-
-# 3 objects to find
-NEEDLE_LETTER = "N"
-PIPE_LETTER = "P"
-ETHER_LETTER = "E"
-
-# Text for the end of the game
-WIN = 'You win! You can escape!'
-LOOSE = "You can't escape! The guardian killed you!"

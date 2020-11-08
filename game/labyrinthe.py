@@ -77,6 +77,7 @@ class Labyrinthe:
                             raise ValueError(
                                 "Error : you should have just 1 Needle!"
                             )
+
     """ Method too show my list of lists: structure of the maze """
 
     def show_maze(self):

@@ -127,16 +127,17 @@ class Controller:
                              self.player.pos_x,
                              self.player.pos_y,
                              self.player.pos_x)
-        # get Mc Gyver positions
-        self.lab.return_position(self.player.pos_y,
-                                 self.player.pos_x)
 
     """ Game loop to run the game """
     def loop(self):
         # instantiate pygame loop to run correctly the game and close it easily with the exit cross if wanted
         launched = True
         while launched:
+            self.lab.show_maze()
             self.load_structure_2d()
+            # get Mc Gyver positions
+            self.lab.return_position(self.player.pos_y,
+                                     self.player.pos_x)
             for action in pygame.event.get():
                 if action.type == pygame.QUIT:
                     launched = False
@@ -148,21 +149,34 @@ class Controller:
                                                   self.player.pos_x):
                             # visibility of the action of movement
                             self.player.move_mcgyver("u")
-
+                            self.lab.move_player("M", self.player.pos_y + 1,
+                                                 self.player.pos_x,
+                                                 self.player.pos_y,
+                                                 self.player.pos_x)
                     if action.key == pygame.K_DOWN:
                         if self.lab.authorize_pos(self.player.pos_y + 1,
                                                   self.player.pos_x):
                             self.player.move_mcgyver("d")
-
+                            self.lab.move_player("M", self.player.pos_y - 1,
+                                                 self.player.pos_x,
+                                                 self.player.pos_y,
+                                                 self.player.pos_x)
                     if action.key == pygame.K_LEFT:
                         if self.lab.authorize_pos(self.player.pos_y,
                                                   self.player.pos_x - 1):
                             self.player.move_mcgyver("l")
-
+                            self.lab.move_player("M", self.player.pos_y,
+                                                 self.player.pos_x + 1,
+                                                 self.player.pos_y,
+                                                 self.player.pos_x)
                     if action.key == pygame.K_RIGHT:
                         if self.lab.authorize_pos(self.player.pos_y,
                                                   self.player.pos_x + 1):
                             self.player.move_mcgyver("r")
+                            self.lab.move_player("M", self.player.pos_y,
+                                                 self.player.pos_x - 1,
+                                                 self.player.pos_y,
+                                                 self.player.pos_x)
             # when the player meet the guardian: screen win or loose the game
             if (self.player.pos_x, self.player.pos_y) == (self.guardian.pos_x,
                                                           self.guardian.pos_y):
