@@ -27,7 +27,7 @@ The items change their places at each new start of the game.
 Inside the folder "setting" open the file "install.py"
 !! Don’t forget to run cmd or powershell as administrator !
 
-To start the game after that, inside the folder "game" open the file "Run_game.py"
+To start the game after that, open the file "main.py"
 
 ----------------------------------------------------------------------------------------------
 []()**FEATURES:**
