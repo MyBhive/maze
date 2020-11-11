@@ -1,6 +1,7 @@
 # coding: utf-8
+import pygame
 
-from game.controller import *
+from game.controller import Controller
 
 pygame.init()
 
@@ -15,7 +16,3 @@ class RunGame:
         self.controller.before_loop()
         self.controller.loop()
 
-
-if __name__ == '__main__':
-    run = RunGame()
-    run.run_the_game()
