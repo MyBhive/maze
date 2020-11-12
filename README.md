@@ -24,13 +24,10 @@ The items change their places at each new start of the game.
 
 `Installation required:`
 
-- install a Virtual Environment : python -m pip install --user virtualenv
-- Inside the folder "setting" open the file "install.py"
-  !! Don’t forget to run cmd or powershell as administrator !
+Inside the folder "setting" open the file "install.py"
+!! Don’t forget to run cmd or powershell as administrator !
 
-`Lunch:`
-
-- To start the game after that, inside the folder "game" open the file "Run_game.py"
+To start the game after that, inside the folder "game" open the file "Run_game.py"
 
 ----------------------------------------------------------------------------------------------
 []()**FEATURES:**
