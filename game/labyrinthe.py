@@ -1,36 +1,33 @@
 # coding: utf-8
 
-"""
-Creating a Labyrinthe's class to make the maze appear as well as character's position
-"""
+"""Creating a Labyrinthe's class to make
+the maze appear as well as character's position"""
 
 
 class Labyrinthe:
-
-    """ To initialize an empty list to make a list of lists."""
+    """Handle the structure of the maze and his main visibility"""
 
     def __init__(self, name_file):
+        """Initialize an empty list for the structure of the maze
+        and a file to import"""
         self.map_structure = []
         self.file = name_file
 
-    """
-    Method to open a file and read it line per line
-    to extract all the "O" and "." existing inside
-    """
     def pick_up_from_file(self):
+        """Method to open a file and read it line per line
+        to extract all the "O" and "." existing inside"""
         with open(self.file, "r") as file:
             for content in range(15):
                 line = file.readline()
                 liste = list(map(str, line))[:15]
-                # if my list from my line is bigger than 15 char, I reduce it to have only 15
+                # if my list from my line is bigger than 15 char,
+                # I reduce it to have only 15
                 self.map_structure.append(liste)
-    """
-    Method to verify if the data in my export file are correct : 
-    We need to have only the hero(M), the guardian(G), 
-    the walls(O), the paths(.) and the items(E,P,N)
-    """
 
     def analyze_file(self):
+        """Method to verify if the data in my export file are correct :
+        We need to have only the hero(M), the guardian(G),
+        the walls(O), the paths(.) and the items(E,P,N)"""
         nb_of_mcgyver = 0
         nb_of_guardian = 0
         nb_of_pipe = 0
@@ -78,20 +75,16 @@ class Labyrinthe:
                                 "Error : you should have just 1 Needle!"
                             )
 
-    """ Method too show my list of lists: structure of the maze """
-
     def show_maze(self):
+        """Method too show my list of lists: structure of the maze"""
         for line in self.map_structure:
             print(line)
 
-    """
-     Method to verify if the move is possible: 
-     if out of the maze --> return False
-     if in a wall --> return False
-     otherwise --> return True
-    """
-
     def authorize_pos(self, pos_col, pos_line):
+        """Method to verify if the move is possible:
+         if out of the maze --> return False
+         if in a wall --> return False
+         otherwise --> return True"""
         wall = "O"
         line_size = len(self.map_structure[0]) - 1
         column_size = len(self.map_structure) - 1
@@ -104,24 +97,23 @@ class Labyrinthe:
         else:
             return True
 
-    """ Method which return the position of the character in the maze """
     def return_position(self, x, y):
+        """Method which return the position of the character in the maze"""
         character = self.map_structure[x][y]
         return character
 
-    """ Method which put the items in the maze. 
-    We take a path area and we place the item instead.
-    """
     def put_item(self, character, x, y):
+        """Method which put the items in the maze.
+        We take a path area and we place the item instead."""
         if self.map_structure[x][y] == ".":
             self.map_structure[x][y] = character
 
-    """ To find all things from one category like paths or walls """
-
     def find_all(self, character):
+        """To find all things from one category like paths or walls"""
         # list of position
         positions = []
-        # enumerate returns 2 variables. the first one for the line and second for the column
+        # enumerate returns 2 variables.
+        # the first one for the line and second for the column
         for x, line in enumerate(self.map_structure):
             for y, column in enumerate(line):
                 if character == column:
